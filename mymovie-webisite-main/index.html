@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web-Xem-Phim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">WebXemPhim</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
+        <li class="nav-item"><a class="nav-link active" href="#">Tìm kiếm</a></li>
+        <form class="d-flex ms-3" role="search">
+          <input class="form-control me-2" type="search" id="searchInput" placeholder="Tìm tên phim..." aria-label="Search" />
+        </form>
+      </ul>
+    </div>
+    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập</button>
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</button>
+  </nav>
+
+  <!-- Bộ lọc -->
+  <div class="container my-4">
+    <div class="row g-3">
+      <div class="col-md-2">
+        <label class="filter-label">Loại phim:</label>
+        <select class="form-select" id="filter-type">
+          <option value="">- Tất cả -</option>
+          <option value="Phim Lẻ">Phim Lẻ</option>
+          <option value="Phim Bộ">Phim Bộ</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="filter-label">Thể loại:</label>
+        <select class="form-select" id="filter-genre">
+          <option value="">- Tất cả -</option>
+          <option value="Hành động">Hành động</option>
+          <option value="Hài">Hài</option>
+          <option value="Tình cảm">Tình cảm</option>
+          <option value="Khoa học viễn tưởng">Khoa học viễn tưởng</option>
+          <option value="Lịch sử">Lịch sử</option>
+          <option value="Kinh dị">Kinh dị</option>
+          <option value="Phiêu lưu">Phiêu lưu</option>
+          <option value="Hoạt hình">Hoạt hình</option>
+          <option value="Tài liệu">Tài liệu</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="filter-label">Quốc gia:</label>
+        <select class="form-select" id="filter-country">
+          <option value="">- Tất cả -</option>
+          <option value="Mỹ">Mỹ</option>
+          <option value="Hàn Quốc">Hàn Quốc</option>
+          <option value="Nhật Bản">Nhật Bản</option>
+          <option value="Việt Nam">Việt Nam</option>
+          <option value="Trung Quốc">Trung Quốc</option>
+          <option value="Ấn Độ">Ấn Độ</option>
+          <option value="Anh">Anh</option>
+          <option value="Pháp">Pháp</option>
+          <option value="Đức">Đức</option>
+          <option value="Ý">Ý</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="filter-label">Năm:</label>
+        <select class="form-select" id="filter-year">
+          <option value="">- Tất cả -</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách phim -->
+  <div class="container">
+    <div class="row g-4" id="movie-list">
+      <!-- Sẽ được JavaScript sinh tự động -->
+    </div>
+  </div>
+
+  <!-- Modal xem chi tiết phim -->
+  <div class="modal fade" id="movieModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="modalTitle">Tên phim</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <img id="modalPoster" src="" alt="Poster" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-8">
+              <h2 id="modalFullTitle"></h2>
+              <p><span class="badge bg-warning text-dark">IMDb <span id="modalRating"></span></span> • <span id="modalCountry"></span> • <span id="modalYear"></span></p>
+              <div class="mb-3">
+                <span class="badge bg-secondary me-2" id="modalGenre"></span>
+                <span class="badge bg-secondary" id="modalType"></span>
+              </div>
+              <p id="modalDescription" class="text-light"></p>
+              <a href="#" target="_blank" id="modalWatchLink" class="btn btn-danger mt-2">XEM PHIM</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Đăng nhập -->
+  <div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đăng nhập</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <input type="text" class="form-control mb-3" placeholder="Tên đăng nhập" required>
+            <input type="password" class="form-control mb-3" placeholder="Mật khẩu" required>
+            <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Đăng ký -->
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đăng ký</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <input type="text" class="form-control mb-3" placeholder="Tên đăng nhập" required>
+            <input type="email" class="form-control mb-3" placeholder="Email" required>
+            <input type="password" class="form-control mb-3" placeholder="Mật khẩu" required>
+            <button type="submit" class="btn btn-danger w-100">Đăng ký</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
